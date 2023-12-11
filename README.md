@@ -1,4 +1,4 @@
-# AddNovo
+# CÁLCULO DE IMC.
 
 Utilizei a biblioteca Tkinter, criei uma interface melhorada para a aplicação com campos para inserir nome, peso e altura, e um botão para calcular o IMC,
 uma área para exibir o resultado e uma tabela para exibir os dados cadastrados.
