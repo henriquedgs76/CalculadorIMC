@@ -37,7 +37,7 @@ class CalculadoraIMC:
         self.resultado_label.pack(pady=10)
 
         # Configuração da tabela
-        self.tree = ttk.Treeview(self.root, columns=("ID", "Nome", "Peso", "Altura", "IMC", "Classificação"), show="headings", height=5)
+        self.tree = ttk.Treeview(self.root, columns=("ID", "Nome", "Peso", "Altura", "IMC", "Classificação"), show="headings", height=9)
         self.tree.heading("ID", text="ID")
         self.tree.heading("Nome", text="Nome")
         self.tree.heading("Peso", text="Peso")
@@ -47,11 +47,11 @@ class CalculadoraIMC:
         self.tree.pack(pady=20)
 
         # Botão para exibir usuários
-        self.exibir_button = tk.Button(self.root, text="Exibir Usuários", command=self.exibir_usuarios, font=("Helvetica", 12), bg="#2196F3", fg="white")
+        self.exibir_button = tk.Button(self.root, text="Exibir Usuários", command=self.exibir_usuarios, font=("Helvetica", 12), bg="green", fg="white")
         self.exibir_button.pack(pady=5)
 
         # Botão para excluir usuário
-        self.excluir_button = tk.Button(self.root, text="Excluir Usuário", command=self.excluir_usuario, font=("Helvetica", 12), bg="#FF5722", fg="white")
+        self.excluir_button = tk.Button(self.root, text="Excluir Usuário", command=self.excluir_usuario, font=("Helvetica", 12), bg="green", fg="white")
         self.excluir_button.pack(pady=5)
 
         # Conectar ao banco de dados SQLite
@@ -108,7 +108,9 @@ class CalculadoraIMC:
 
         # Inserir dados na tabela na interface gráfica
         for row in rows:
-            self.tree.insert("", "end", values=row)
+            imc = row[2] / (row[3] ** 2)
+            classificacao = self.obter_classificacao(imc)
+            self.tree.insert("", "end", values=(row[0], row[1], row[2], row[3], f"{imc:.2f}", classificacao))
 
     def exibir_usuarios(self):
         # Atualizar a tabela na interface gráfica
