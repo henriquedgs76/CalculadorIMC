@@ -59,7 +59,7 @@ class CalculadoraIMC:
         self.cursor = self.conexao.cursor()
 
         # Criar tabela se não existir
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS calculador (id INTEGER PRIMARY KEY, nome TEXT, peso REAL, altura REAL)")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS calculador (id INTEGER PRIMARY KEY, nome TEXT, peso REAL, altura REAL, imc REAL, classificacao TEXT)")
         self.conexao.commit()
 
     def calcular_imc(self):
@@ -72,7 +72,7 @@ class CalculadoraIMC:
             nome = self.nome_entry.get()
 
             # Inserir dados no banco de dados
-            self.cursor.execute("INSERT INTO calculador (nome, peso, altura) VALUES (?, ?, ?)", (nome, peso, altura))
+            self.cursor.execute("INSERT INTO calculador (nome, peso, altura, imc, classificacao) VALUES (?, ?, ?, ?, ?)", (nome, peso, altura, imc, classificacao))
             self.conexao.commit()
 
             # Atualizar a tabela na interface gráfica
